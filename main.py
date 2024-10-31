@@ -1,3 +1,4 @@
+import sys
 import pygame
 from player import Player
 from asteroid import Asteroid
@@ -25,7 +26,7 @@ def main():
     AsteroidField.containers = (updatable)
 
     player = Player(x=SCREEN_WIDTH / 2, y=SCREEN_HEIGHT / 2)
-    asteroidField = AsteroidField()
+    asteroid_field = AsteroidField()
     
     # main game loop
     while True:
@@ -36,6 +37,12 @@ def main():
         # update updatables
         for obj in updatable:
             obj.update(dt)
+        
+        # check for player collisions with asteroids
+        for asteroid in asteroids:
+            if player.collides_with(asteroid):
+                print("Game over!")
+                sys.exit()
             
         # render
         screen.fill("black")
